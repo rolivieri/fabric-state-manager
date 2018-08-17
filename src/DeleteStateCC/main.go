@@ -31,7 +31,7 @@ func (t *DeleteStateCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
 		logger.Warning(warningMsg)
 	}
 
-	logger.Infof("Namespsaces provided to DeleteStateCC: %v", t.Namespaces)
+	logger.Infof("Namespaces provided to DeleteStateCC: %v", t.Namespaces)
 	logger.Infof("- End execution -  %s\n", methodName)
 	return shim.Success(nil)
 }
