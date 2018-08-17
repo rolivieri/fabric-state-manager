@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
+	pb "github.com/hyperledger/fabric/protos/peer"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -20,24 +21,33 @@ const MockStubUUID = "d2490ad8-3901-11e8-b467-0ed5f89f718a"
 
 const TestNamespace = "TestNamespace"
 
+var TestNamespaces = []string{"TestNamespace1", "TestNamespace2"}
+
 func TestInit(t *testing.T) {
 	scc := new(main.DeleteStateCC)
 	stub := shim.NewMockStub("TestInit", scc)
-	namespaces := [][]byte{[]byte("init"), []byte(TestNamespace)}
-	res := stub.MockInit(MockStubUUID, namespaces)
+	res := initStub(stub)
 	if res.Status != shim.OK {
-		fmt.Println("Initialization of chaincode failed: ", string(res.Message))
+		fmt.Println("Initialization of DeleteStateCC chaincode failed: ", string(res.Message))
 		t.FailNow()
 	}
-	// TODO: Assertions
-	s := []string{"TestNamespace"}
-	assert.True(t, reflect.DeepEqual(scc.Namespaces, s))
+	assert.True(t, reflect.DeepEqual(scc.Namespaces, TestNamespaces))
+}
+
+func initStub(stub *shim.MockStub) pb.Response {
+	namespacesAsBytes := [][]byte{[]byte("init")}
+	for _, namespace := range TestNamespaces {
+		namespacesAsBytes = append(namespacesAsBytes, []byte(namespace))
+	}
+	res := stub.MockInit(MockStubUUID, namespacesAsBytes)
+	return res
 }
 
 // TestResetWorldState tests the ResetWorldState method
 func TestDeleteState(t *testing.T) {
 	scc := new(main.DeleteStateCC)
 	stub := shim.NewMockStub("TestDeleteState", scc)
+	initStub(stub)
 	dummyRecord := `{"id": "{0}", "Company Code": "IBM"}`
 	expectedNumOfRecordsDeleted := 10
 	// Store dummy data into world state
@@ -45,6 +55,7 @@ func TestDeleteState(t *testing.T) {
 		recordID := strconv.Itoa(id)
 		record := strings.Replace(dummyRecord, "{0}", recordID, 1)
 		recordAsBytes := []byte(record)
+
 		recordCompositeKey, compositeErr := stub.CreateCompositeKey(TestNamespace, []string{recordID})
 		if compositeErr != nil {
 			fmt.Println("Failed to generate composite key for record with id " + recordID + ".  Error: " + compositeErr.Error())
