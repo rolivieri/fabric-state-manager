@@ -47,11 +47,79 @@ $ echo $GOPATH
 /Users/olivieri/go:/Users/olivieri/git/fabric-reset-world-state
 ```
 
-2) To compile the `DeleteStateCC` chaincode component, you can simply run the following command:
+2) To compile and test the `DeleteStateCC` chaincode component, you can simply run the following commands:
 
 ```
 $ pwd
 /Users/olivieri/git/fabric-reset-world-state/src/DeleteStateCC
 $ go build
+$ go test
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Info -> INFO 001 ########### DeleteStateCC Init ###########
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 002 Namespsaces provided to DeleteStateCC: [TestNamespace1 TestNamespace2]
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 003 - End execution -  Init()
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Info -> INFO 004 ########### DeleteStateCC Init ###########
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 005 Namespsaces provided to DeleteStateCC: [TestNamespace1 TestNamespace2]
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 006 - End execution -  Init()
+Inserting dummy reconrd into namespace: TestNamespace1
+Inserting dummy reconrd into namespace: TestNamespace2
+Inserting dummy reconrd into namespace: TestNamespace1
+Inserting dummy reconrd into namespace: TestNamespace2
+Inserting dummy reconrd into namespace: TestNamespace1
+Inserting dummy reconrd into namespace: TestNamespace2
+Inserting dummy reconrd into namespace: TestNamespace1
+Inserting dummy reconrd into namespace: TestNamespace2
+Inserting dummy reconrd into namespace: TestNamespace1
+Inserting dummy reconrd into namespace: TestNamespace2
+Inserting dummy reconrd into namespace: TestNamespace1
+Inserting dummy reconrd into namespace: TestNamespace2
+Inserting dummy reconrd into namespace: TestNamespace1
+Inserting dummy reconrd into namespace: TestNamespace2
+Inserting dummy reconrd into namespace: TestNamespace1
+Inserting dummy reconrd into namespace: TestNamespace2
+Inserting dummy reconrd into namespace: TestNamespace1
+Inserting dummy reconrd into namespace: TestNamespace2
+Inserting dummy reconrd into namespace: TestNamespace1
+Inserting dummy reconrd into namespace: TestNamespace2
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Info -> INFO 007 ########### DeleteStateCC Invoke ###########
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Info -> INFO 008 ########### Calling DeleteState ###########
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 009 - Begin execution -  DeleteState()
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 00a DeleteState() - Deleting data for namespaces: 'TestNamespace1,TestNamespace2'
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 00b DeleteState() - Deleting data for namespace 'TestNamespace1'.
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 00c - Begin execution -  DeleteRecordsByPartialKey()
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 00d Starting to delete all records with namespace TestNamespace1
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 00e About to delete record with key TestNamespace10
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 00f About to delete record with key TestNamespace11
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 010 About to delete record with key TestNamespace12
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 011 About to delete record with key TestNamespace13
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 012 About to delete record with key TestNamespace14
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 013 About to delete record with key TestNamespace15
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 014 About to delete record with key TestNamespace16
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 015 About to delete record with key TestNamespace17
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 016 About to delete record with key TestNamespace18
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 017 About to delete record with key TestNamespace19
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 018 Finished deleting all records found in TestNamespace1
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 019 - End execution -  DeleteRecordsByPartialKey()
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 01a - DeleteRecordsByPartialKey returned with total # of records deleted - 10 for namespace TestNamespace1
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 01b DeleteState() - Deleting data for namespace 'TestNamespace2'.
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 01c - Begin execution -  DeleteRecordsByPartialKey()
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 01d Starting to delete all records with namespace TestNamespace2
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 01e About to delete record with key TestNamespace20
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 01f About to delete record with key TestNamespace21
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 020 About to delete record with key TestNamespace22
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 021 About to delete record with key TestNamespace23
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 022 About to delete record with key TestNamespace24
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 023 About to delete record with key TestNamespace25
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 024 About to delete record with key TestNamespace26
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 025 About to delete record with key TestNamespace27
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 026 About to delete record with key TestNamespace28
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 027 About to delete record with key TestNamespace29
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 028 Finished deleting all records found in TestNamespace2
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 029 - End execution -  DeleteRecordsByPartialKey()
+2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 02a - DeleteRecordsByPartialKey returned with total # of records deleted - 10 for namespace TestNamespace2
+2018-08-17 11:34:37.314 EDT [DeleteStateCCLog] Infof -> INFO 02b - Total number of records deleted accross all namespaces - 20
+Summary: Expected number of deleted records = 20, actual number of deleted records from chain = 20 
+ PASS
+ok  	DeleteStateCC	0.029s
+$ 
 ```
 
