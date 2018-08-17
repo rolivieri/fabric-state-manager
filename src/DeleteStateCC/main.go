@@ -38,13 +38,13 @@ func (t *DeleteStateCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
 
 // Invoke is the entry point for all invocations
 func (t *DeleteStateCC) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-	function, args := stub.GetFunctionAndParameters()
+	function, _ := stub.GetFunctionAndParameters()
 	logger.Info("########### DeleteStateCC Invoke ###########")
 
 	switch function {
 	case "DeleteState":
 		logger.Info("########### Calling DeleteState ###########")
-		return t.DeleteState(stub, args)
+		return t.DeleteState(stub)
 	}
 
 	errorMsg := fmt.Sprintf("Could not find function named '%s' in DeleteStateCC.", function)
@@ -53,7 +53,7 @@ func (t *DeleteStateCC) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 }
 
 // DeleteState deletes all data found under each one of the namespaces provided in the Init() method
-func (t *DeleteStateCC) DeleteState(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (t *DeleteStateCC) DeleteState(stub shim.ChaincodeStubInterface) pb.Response {
 	methodName := "DeleteState()"
 	logger.Infof("- Begin execution -  %s", methodName)
 
