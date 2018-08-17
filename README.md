@@ -1,21 +1,20 @@
 # fabric-reset-world-state
 
-This repository contains a reusable Golang chaincode component for deleting the records found under a given list of namespaces,thus, effectively wiping out the world state. This chaincode component exposes the following methods:
+This repository contains a reusable Golang chaincode component, `DeleteStateCC`, for deleting the records found under a given list of namespaces. Thus, this chaincode component can be used to wipe out the world state. The `DeleteStateCC` chaincode component exposes the following methods:
 
  - DeleteState - Deletes all records found under the namespaces that are passed in to the `Init()` method.
-
 
 ## Compiling and running test cases
 
 ### Platform
-It is stronly recommended to use **macOS** or a **Linux** flavor (such as Ubuntu) for compiling and testing the chaincode components.
+It is stronly recommended to use **macOS** or a **Linux** flavor (such as Ubuntu) for compiling and testing the `DeleteStateCC` chaincode component.
 
 ### Prerequistes
-1) Before you attempt to compile and run the tests cases for the chaincode components, please make sure you have the necessary [pre-requisites](https://hyperledger-fabric.readthedocs.io/en/release-1.1/prereqs.html) on your system:
+1) Before you attempt to compile and run the tests cases for `DeleteStateCC`, please make sure you have the necessary [pre-requisites](https://hyperledger-fabric.readthedocs.io/en/release-1.1/prereqs.html) on your system:
 
 * GO programming language (v1.9.x)
 
-2) Once you have GO and Python installed on your system, you should download the Fabric v1.1.0 files. To do so, you can access the following URL from your browser: `https://github.com/hyperledger/fabric/archive/v1.1.0.tar.gz`. As an alternative, you can execute the following command from your command line:
+2) Once you have GO installed on your system, you should download the Fabric v1.1.0 files. To do so, you can access the following URL from your browser: `https://github.com/hyperledger/fabric/archive/v1.1.0.tar.gz`. As an alternative, you can execute the following command from your command line:
 
 ```
 curl -O -L https://github.com/hyperledger/fabric/archive/v1.1.0.tar.gz
@@ -38,7 +37,7 @@ go get github.com/stretchr/testify/assert
 ```
 
 ### Steps
-1) Once you have cloned this repository, update your `GOPATH` environment variable so that it includes the absolute path to the root folder of this repository on your local file system. For instance, after cloning this repo to my local file system, the following is the absolute path to the root folder: `/Users/olivieri/git/fabric-reset-world-state`. Therefore, my `GOPATH` environment variable was updated as follows:
+1) Once you have cloned this repository, you should update your `GOPATH` environment variable so that it includes the absolute path to the root folder of this repository on your local file system. For instance, after cloning this repo to my local file system, the following is the absolute path to the root folder: `/Users/olivieri/git/fabric-reset-world-state`. Therefore, my `GOPATH` environment variable was updated as follows:
 
 ```
 $ echo $GOPATH
