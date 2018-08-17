@@ -63,10 +63,10 @@ func (t *DeleteStateCC) DeleteState(stub shim.ChaincodeStubInterface, args []str
 		return shim.Success([]byte(strconv.Itoa(totalRecordsDeleted)))
 	}
 
-	logger.Infof("%s - Deleting data for namespaces: '%s'", methodName, strings.Join(args, ","))
+	logger.Infof("%s - Deleting data for namespaces: '%s'", methodName, strings.Join(t.Namespaces, ","))
 
 	// Delete records/state in each namespace
-	for _, namespace := range args {
+	for _, namespace := range t.Namespaces {
 		logger.Infof("%s - Deleting data for namespace '%s'.", methodName, namespace)
 		recordsDeleted, err := t.DeleteRecordsByPartialKey(stub, namespace)
 		if err != nil {

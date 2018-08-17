@@ -23,6 +23,17 @@ const TestNamespace = "TestNamespace"
 
 var TestNamespaces = []string{"TestNamespace1", "TestNamespace2"}
 
+// CheckInvoke is a common utilities method for test cases
+func CheckInvoke(t *testing.T, stub *shim.MockStub, function string, args []byte) pb.Response {
+	mockInvokeArgs := [][]byte{[]byte(function), args}
+	res := stub.MockInvoke(MockStubUUID, mockInvokeArgs)
+	if res.Status != shim.OK {
+		fmt.Println("Invocation of", function, "function failed: ", string(res.Message))
+		t.FailNow()
+	}
+	return res
+}
+
 func TestInit(t *testing.T) {
 	scc := new(main.DeleteStateCC)
 	stub := shim.NewMockStub("TestInit", scc)
@@ -49,9 +60,9 @@ func TestDeleteState(t *testing.T) {
 	stub := shim.NewMockStub("TestDeleteState", scc)
 	initStub(stub)
 	dummyRecord := `{"id": "{0}", "Company Code": "IBM"}`
-	expectedNumOfRecordsDeleted := 10
+	numberOfRecordsPerNamespace := 10
 	// Store dummy data into world state
-	for id := 0; id < expectedNumOfRecordsDeleted; id++ {
+	for id := 0; id < numberOfRecordsPerNamespace; id++ {
 		recordID := strconv.Itoa(id)
 		record := strings.Replace(dummyRecord, "{0}", recordID, 1)
 		recordAsBytes := []byte(record)
@@ -72,5 +83,37 @@ func TestDeleteState(t *testing.T) {
 		}
 	}
 
-	//TODO: Assertions
+	// Now we are ready to test our API to ensure it can delete records as expected
+	rawNumberOfRecordsDeleted := CheckInvoke(t, stub, "DeleteState", []byte{})
+	actualNumberOfRecordsDeleted := string(rawNumberOfRecordsDeleted.GetPayload())
+
+	for id := 0; id < numberOfRecordsPerNamespace; id++ {
+		recordID := strconv.Itoa(id)
+		// Create composite key using namespace (prefix) for record
+		for _, namespace := range TestNamespaces {
+
+			recordCompositeKey, compositeErr := stub.CreateCompositeKey(namespace, []string{recordID})
+			if compositeErr != nil {
+				fmt.Println("Failed to generate composite key for record with id " + recordID + ".  Error: " + compositeErr.Error())
+				t.FailNow()
+			}
+
+			// Get invoice data directly from world state (there should be none)
+			recordAsBytesByCompositeKey := stub.State[recordCompositeKey]
+			if recordAsBytesByCompositeKey != nil {
+				fmt.Println("Failed to delete record with key:", recordCompositeKey)
+				t.FailNow()
+			}
+
+			recordAsBytesBySimpleKey := stub.State[recordID]
+			if recordAsBytesBySimpleKey == nil {
+				fmt.Println("Failed to read record with key:", recordID)
+				t.FailNow()
+			}
+		}
+	}
+
+	expectedNumberOfRecordsDeleted := numberOfRecordsPerNamespace * len(TestNamespaces)
+	fmt.Printf("Summary: Expected number of deleted records = %d, actual number of deleted records from chain = %s \n ", expectedNumberOfRecordsDeleted, actualNumberOfRecordsDeleted)
+	assert.Equal(t, strconv.Itoa(expectedNumberOfRecordsDeleted), actualNumberOfRecordsDeleted, "Number of deleted records do NOT match.")
 }
