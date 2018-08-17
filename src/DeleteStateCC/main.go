@@ -58,11 +58,6 @@ func (t *DeleteStateCC) DeleteState(stub shim.ChaincodeStubInterface, args []str
 	logger.Infof("- Begin execution -  %s", methodName)
 
 	totalRecordsDeleted := 0
-	if len(args) == 0 {
-		logger.Warning("No namespaces provided to DeleteStateCC; hence no data was deleted.")
-		return shim.Success([]byte(strconv.Itoa(totalRecordsDeleted)))
-	}
-
 	logger.Infof("%s - Deleting data for namespaces: '%s'", methodName, strings.Join(t.Namespaces, ","))
 
 	// Delete records/state in each namespace
