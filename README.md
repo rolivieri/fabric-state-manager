@@ -51,7 +51,7 @@ $ echo $GOPATH
 
 ```
 $ pwd
-/Users/olivieri/git/fabric-reset-world-state
-$ go build DeleteStateCC
+/Users/olivieri/git/fabric-reset-world-state/src/DeleteStateCC
+$ go build
 ```
 
