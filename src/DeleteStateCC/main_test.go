@@ -55,19 +55,21 @@ func TestDeleteState(t *testing.T) {
 		recordID := strconv.Itoa(id)
 		record := strings.Replace(dummyRecord, "{0}", recordID, 1)
 		recordAsBytes := []byte(record)
+		for _, namespace := range TestNamespaces {
+			recordCompositeKey, compositeErr := stub.CreateCompositeKey(namespace, []string{recordID})
+			if compositeErr != nil {
+				fmt.Println("Failed to generate composite key for record with id " + recordID + ".  Error: " + compositeErr.Error())
+				t.FailNow()
+			}
+			fmt.Println("Inserting dummy reconrd into namespace:", namespace)
 
-		recordCompositeKey, compositeErr := stub.CreateCompositeKey(TestNamespace, []string{recordID})
-		if compositeErr != nil {
-			fmt.Println("Failed to generate composite key for record with id " + recordID + ".  Error: " + compositeErr.Error())
-			t.FailNow()
+			// Need a dummy transaction before we can call the stub.PutState() method
+			stub.MockTransactionStart(TxID)
+			stub.PutState(recordCompositeKey, recordAsBytes)
+			// Insert additional data but using this time a non-composite key (these records should not be deleted)
+			stub.PutState(recordID, recordAsBytes)
+			stub.MockTransactionEnd(TxID)
 		}
-
-		// Need a dummy transaction before we can call the stub.PutState() method
-		stub.MockTransactionStart(TxID)
-		stub.PutState(recordCompositeKey, recordAsBytes)
-		// Insert additional data but using this time a non-composite key (these records should not be deleted)
-		stub.PutState(recordID, recordAsBytes)
-		stub.MockTransactionEnd(TxID)
 	}
 
 	//TODO: Assertions
