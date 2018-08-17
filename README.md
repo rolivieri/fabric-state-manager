@@ -47,7 +47,7 @@ $ echo $GOPATH
 /Users/olivieri/go:/Users/olivieri/git/fabric-reset-world-state
 ```
 
-2) To compile the `DeleteStateCC` chaincode component, you can simply run the following command from the root folder of this repository:
+2) To compile the `DeleteStateCC` chaincode component, you can simply run the following command:
 
 ```
 $ pwd

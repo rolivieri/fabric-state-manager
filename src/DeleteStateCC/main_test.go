@@ -3,11 +3,13 @@ package main_test
 import (
 	main "DeleteStateCC"
 	"fmt"
+	"reflect"
 	"strconv"
 	"strings"
 	"testing"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
+	"github.com/stretchr/testify/assert"
 )
 
 // TxID is just a dummuy transactional ID for test cases
@@ -28,6 +30,8 @@ func TestInit(t *testing.T) {
 		t.FailNow()
 	}
 	// TODO: Assertions
+	s := []string{"TestNamespace"}
+	assert.True(t, reflect.DeepEqual(scc.Namespaces, s))
 }
 
 // TestResetWorldState tests the ResetWorldState method

@@ -10,10 +10,11 @@ import (
 )
 
 var logger = shim.NewLogger("DeleteStateCCLog")
-var namespaces []string
 
 // DeleteStateCC chaincode structure
 type DeleteStateCC struct {
+	// Namespaces array variable
+	Namespaces []string
 }
 
 // Init initializes chaincode
@@ -22,15 +23,15 @@ func (t *DeleteStateCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	methodName := "Init()"
 	_, args := stub.GetFunctionAndParameters()
 	for _, namespace := range args {
-		namespaces = append(namespaces, namespace)
+		t.Namespaces = append(t.Namespaces, namespace)
 	}
 
-	if len(namespaces) == 0 {
+	if len(t.Namespaces) == 0 {
 		warningMsg := fmt.Sprintf("%s - No namespaces were provided to DeleteStateCC.", methodName)
 		logger.Warning(warningMsg)
 	}
 
-	logger.Infof("Namespsaces provided to DeleteStateCC: %v", namespaces)
+	logger.Infof("Namespsaces provided to DeleteStateCC: %v", t.Namespaces)
 	logger.Infof("- End execution -  %s\n", methodName)
 	return shim.Success(nil)
 }
@@ -67,7 +68,7 @@ func (t *DeleteStateCC) DeleteState(stub shim.ChaincodeStubInterface, args []str
 	// Delete records/state in each namespace
 	for _, namespace := range args {
 		logger.Infof("%s - Deleting data for namespace '%s'.", methodName, namespace)
-		recordsDeleted, err := DeleteRecordsByPartialKey(stub, namespace)
+		recordsDeleted, err := t.DeleteRecordsByPartialKey(stub, namespace)
 		if err != nil {
 			return shim.Error(err.Error())
 		}
@@ -81,7 +82,7 @@ func (t *DeleteStateCC) DeleteState(stub shim.ChaincodeStubInterface, args []str
 }
 
 // DeleteRecordsByPartialKey deletes records using a partial composite key (helper function used by DeleteState)
-func DeleteRecordsByPartialKey(stub shim.ChaincodeStubInterface, namespace string) (int, error) {
+func (t *DeleteStateCC) DeleteRecordsByPartialKey(stub shim.ChaincodeStubInterface, namespace string) (int, error) {
 	methodName := "DeleteRecordsByPartialKey()"
 	logger.Infof("- Begin execution -  %s", methodName)
 	var recordsDeletedCount = 0
