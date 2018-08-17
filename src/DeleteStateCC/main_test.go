@@ -58,7 +58,7 @@ func TestDeleteState(t *testing.T) {
 		for _, namespace := range TestNamespaces {
 			recordCompositeKey, compositeErr := stub.CreateCompositeKey(namespace, []string{recordID})
 			if compositeErr != nil {
-				fmt.Println("Failed to generate composite key for record with id " + recordID + ".  Error: " + compositeErr.Error())
+				fmt.Println("Failed to generate composite key for record with id " + recordID + ". Error: " + compositeErr.Error())
 				t.FailNow()
 			}
 			fmt.Println("Inserting dummy reconrd into namespace:", namespace)
