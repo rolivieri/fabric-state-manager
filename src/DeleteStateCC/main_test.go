@@ -19,8 +19,6 @@ const TxID = "mockTxID"
 // MockStubUUID is an UUID value used accross all invocations to MockInit() method
 const MockStubUUID = "d2490ad8-3901-11e8-b467-0ed5f89f718a"
 
-const TestNamespace = "TestNamespace"
-
 var TestNamespaces = []string{"TestNamespace1", "TestNamespace2"}
 
 // CheckInvoke is a common utilities method for test cases
