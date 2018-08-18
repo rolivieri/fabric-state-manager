@@ -1,4 +1,4 @@
-package main
+package deletestate
 
 import "github.com/hyperledger/fabric/core/chaincode/shim"
 
