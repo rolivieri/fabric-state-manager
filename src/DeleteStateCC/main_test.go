@@ -1,7 +1,7 @@
 package main_test
 
 import (
-	main "DeleteStateCC"
+	main "deleteStateCC"
 	"fmt"
 	"reflect"
 	"strconv"

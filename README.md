@@ -47,11 +47,11 @@ $ echo $GOPATH
 /Users/olivieri/go:/Users/olivieri/git/fabric-reset-world-state
 ```
 
-2) To compile and test the `DeleteStateCC` chaincode component, you can simply run the following commands:
+2) To compile and test the `deleteStateCC` chaincode component, you can simply run the following commands:
 
 ```
 $ pwd
-/Users/olivieri/git/fabric-reset-world-state/src/DeleteStateCC
+/Users/olivieri/git/fabric-reset-world-state/src/deleteStateCC
 $ go build
 $ go test
 2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Info -> INFO 001 ########### DeleteStateCC Init ###########
@@ -119,7 +119,7 @@ Inserting dummy reconrd into namespace: TestNamespace2
 2018-08-17 11:34:37.314 EDT [DeleteStateCCLog] Infof -> INFO 02b - Total number of records deleted accross all namespaces - 20
 Summary: Expected number of deleted records = 20, actual number of deleted records from chain = 20 
  PASS
-ok  	DeleteStateCC	0.029s
+ok  	deleteStateCC	0.029s
 $ 
 ```
 
