@@ -1,7 +1,7 @@
-package deletestate_test
+package ws_test
 
 import (
-	deleteState "deleteStateCC"
+	ws "deleteStateCC"
 	"fmt"
 	"reflect"
 	"strconv"
@@ -33,7 +33,7 @@ func CheckInvoke(t *testing.T, stub *shim.MockStub, function string, args []byte
 }
 
 func TestInit(t *testing.T) {
-	scc := new(deleteState.DeleteStateCC)
+	scc := new(ws.DeleteStateCC)
 	stub := shim.NewMockStub("TestInit", scc)
 	res := initStub(stub)
 	if res.Status != shim.OK {
@@ -54,7 +54,7 @@ func initStub(stub *shim.MockStub) pb.Response {
 
 // TestResetWorldState tests the ResetWorldState method
 func TestDeleteState(t *testing.T) {
-	scc := new(deleteState.DeleteStateCC)
+	scc := new(ws.DeleteStateCC)
 	stub := shim.NewMockStub("TestDeleteState", scc)
 	initStub(stub)
 	dummyRecord := `{"id": "{0}", "Company Code": "IBM"}`

@@ -1,4 +1,4 @@
-package deletestate
+package ws
 
 import (
 	"fmt"
