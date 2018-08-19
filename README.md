@@ -124,13 +124,13 @@ $
 ```
 
 ## How to leverage this code from your chaincode component
-Ideally to use this code, you'd simply need to:
+Ideally, to use this code from your chaincode component, you'd simply need to:
 
 * Deploy this code as a chaincode component to your channel.
-* Instantiate the chaincode by providing the namespaces.
-* Invoking this chaincode component from your chaincode component that is also deployed to the same channel.
+* Instantiate this chaincode component by providing the namespaces whose data should deleted from the world state.
+* Invoke this chaincode component from your chaincode component that was deployed to the same channel.
 
-Unfortunately, the above won't work. Fabric takes into account the chaincode component when partitioning the data. This means that this chaincode component won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this limitation, you'd need to follow these steps instead:
+Unfortunately, the above won't work. Fabric takes into account the chaincode component when partitioning the data stored in a channel. This means that this chaincode component won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this limitation, you'd need to follow these steps instead:
 
 TODO: Complete documentation
 
