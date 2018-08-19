@@ -123,7 +123,7 @@ ok  	deleteStateCC	0.029s
 $ 
 ```
 
-## How to leverage this code in your chaincode component
+## How to leverage this code from your chaincode component
 Ideally to use this code, you'd simply need to:
 
 * Deploy this code as a chaincode component to your channel.
