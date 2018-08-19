@@ -1,8 +1,10 @@
 # fabric-reset-world-state
 
-This repository contains a reusable Golang chaincode component, `DeleteStateCC`, for deleting the records found under a given list of namespaces. Thus, this chaincode component can be used to wipe out the world state. The `DeleteStateCC` chaincode component exposes the following methods:
+This repository contains a reusable Golang chaincode component, `DeleteStateCC`, for deleting the records found under a list of namespaces. Thus, this chaincode component can be used to wipe out the world state. The `DeleteStateCC` chaincode component exposes the following methods:
 
  - DeleteState - Deletes all records found under the namespaces that are passed in to the `Init()` method.
+
+Though more than likely you won't be resetting the world state in a production environment, doing so in a test or staging environment or as part of a PoC application is more than common.
 
 ## Compiling and running test cases
 
