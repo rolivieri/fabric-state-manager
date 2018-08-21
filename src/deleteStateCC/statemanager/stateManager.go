@@ -1,4 +1,4 @@
-package deletestatecc
+package statemanager
 
 import (
 	"fmt"

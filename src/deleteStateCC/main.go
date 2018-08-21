@@ -1,7 +1,7 @@
 package main
 
 import (
-	ws "deletestatecc"
+	sm "deleteStateCC/statemanager"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
@@ -10,7 +10,7 @@ import (
 // Main
 // ===================================================================================
 func main() {
-	err := shim.Start(new(ws.DeleteStateCC))
+	err := shim.Start(new(sm.DeleteStateCC))
 	if err != nil {
 		shim.NewLogger("DeleteStateCCMainLog").Errorf("Error starting DeleteStateCC: %s", err)
 	}
