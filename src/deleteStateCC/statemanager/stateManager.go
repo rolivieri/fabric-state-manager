@@ -22,9 +22,16 @@ func (t *DeleteStateCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	logger.Info("########### DeleteStateCC Init ###########")
 	methodName := "Init()"
 	_, args := stub.GetFunctionAndParameters()
-	for _, namespace := range args {
-		t.Namespaces = append(t.Namespaces, namespace)
-	}
+	t.Initialize(args)
+	logger.Infof("- End execution -  %s\n", methodName)
+	return shim.Success(nil)
+}
+
+// Initialize initializes chaincode
+func (t *DeleteStateCC) Initialize(namespaces []string) pb.Response {
+	logger.Info("########### DeleteStateCC Init ###########")
+	methodName := "Initialize()"
+	t.Namespaces = namespaces
 
 	if len(t.Namespaces) == 0 {
 		warningMsg := fmt.Sprintf("%s - No namespaces were provided to DeleteStateCC.", methodName)
