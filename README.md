@@ -145,6 +145,7 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
     package main
 
     import (
+
         ...
 
         ds "<your chaincode directory>/statemanager"
@@ -152,7 +153,8 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
         ...
     )
 
-    type SampleChaincodeCC struct {        
+    type SampleChaincodeCC struct {      
+
         ...
 
         //Using inheritance in this sample
@@ -162,18 +164,44 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
     }
     ```
 
-3.  From the `Init()` method in your chaincode component, invoke the `Initialize(...)`. The invocation to the `Initialize()` method from your chaincode should pass an array of strings that contains the namespaces whose data should be deleted from the world state.  Ex:
+3.  From the `Init()` method in your chaincode component, invoke the `Initialize(...)` method. The invocation to the `Initialize()` method from your chaincode should pass an array of strings that contains the namespaces whose data should be deleted from the world state.  Ex:
 
     ```
+    // Init initializes chaincode
+    func (t *SampleChaincodeCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
+	
+    ...
+
     namespaces := []string{"namespace1", "namespace2", ... "namespaceN"}			
-	return t.Initialize(namespaces)
+	t.Initialize(namespaces)
+
+    ...
+
+	return shim.Success(nil)
+    }
     ```
 
 4.  Add the `DeleteState(...)` method to the `Invoke()` method of your chaincode component.  Ex:
 
     ```
-    case "DeleteState":		
-		return t.DeleteState(stub)
+    // Invoke - Entry point for Invocations
+    func (t *StakeholdersChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
+	function, args := stub.GetFunctionAndParameters()
+
+	switch function {
+        case "Function1":
+            return t.Function1(stub, args)
+        case "Function2":
+            return t.Function2(stub, args)
+        
+        ...
+
+        case "DeleteState":		
+            return t.DeleteState(stub)
+
+    ...
+
+    }
     ```
 
 5.  Whenever there is the need to reset the world state, your Fabric client application should call the `DeleteState()` method which will read the namespaces provided to the `Initialize()` method; the invocation of the `DeleteState()` method will result in the deletion of all the records found under those namespaces.
