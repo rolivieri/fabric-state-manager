@@ -134,5 +134,27 @@ Ideally, to use this code from your chaincode component, you'd simply need to:
 
 Unfortunately, the above won't work. Fabric takes into account the chaincode component when partitioning the data stored in a channel. This means that this chaincode component won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this limitation, you'd need to follow these steps instead:
 
-TODO: Complete documentation
 
+1.  Copy `deleteStateCC` source directory inside your chaincode component's `src` directory
+2.  Extend the implementation 
+    * import the `deleteStateCC` source as a dependency
+    * include dependency from the step above as the addition to chaincode.  Ex:
+    ```
+    type SampleChaincode struct {        
+        ...
+        //add the dependency below to extend the chaincode
+        <add chaincode component here >        
+    }
+    ```
+3.  Add the Initialize(...) method to the Invoke() method of your current chaincode.  Ex:
+    ```
+    case "Initialize":				
+		return t.Initialize(args)
+    ```
+4.  Add the DeleteState(...) method to the Invoke() method of your current chaincode.  Ex:
+    ```
+    case "DeleteState":		
+		return t.DeleteState(stub)
+    ```
+5.  Call `Initialize()` method from your chaincode passing in the string parameter list that is the namespace(s) whose records will be deleted.
+6.  Call `DeleteState()` method which will read the namespaces from the previous step and delete all the actual records.
