@@ -26,7 +26,7 @@ install:
 
 script:
     - echo Building and testing chaincode
-    - cd $GOPATH
+    - echo $GOPATH
     - pwd
     - ls -la
     - go build -v ./...
