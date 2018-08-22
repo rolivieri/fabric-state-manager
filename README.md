@@ -170,14 +170,14 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
     // Init initializes chaincode
     func (t *SampleChaincodeCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	
-    ...
+        ...
 
-    namespaces := []string{"namespace1", "namespace2", ... "namespaceN"}			
-	t.Initialize(namespaces)
+        namespaces := []string{"namespace1", "namespace2", ... "namespaceN"}			
+        t.Initialize(namespaces)
 
-    ...
+        ...
 
-	return shim.Success(nil)
+        return shim.Success(nil)
     }
     ```
 
@@ -186,20 +186,20 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
     ```
     // Invoke - Entry point for Invocations
     func (t *StakeholdersChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-	function, args := stub.GetFunctionAndParameters()
+        function, args := stub.GetFunctionAndParameters()
 
-	switch function {
-        case "Function1":
-            return t.Function1(stub, args)
-        case "Function2":
-            return t.Function2(stub, args)
-        
+        switch function {
+            case "Function1":
+                return t.Function1(stub, args)
+            case "Function2":
+                return t.Function2(stub, args)
+            
+            ...
+
+            case "DeleteState":		
+                return t.DeleteState(stub)
+
         ...
-
-        case "DeleteState":		
-            return t.DeleteState(stub)
-
-    ...
 
     }
     ```
