@@ -29,7 +29,7 @@ func (t *DeleteStateCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
 
 // Initialize initializes chaincode
 func (t *DeleteStateCC) Initialize(namespaces []string) pb.Response {
-	logger.Info("########### DeleteStateCC Init ###########")
+	logger.Info("########### DeleteStateCC Initialize ###########")
 	methodName := "Initialize()"
 	t.Namespaces = namespaces
 
@@ -38,15 +38,15 @@ func (t *DeleteStateCC) Initialize(namespaces []string) pb.Response {
 		logger.Warning(warningMsg)
 	}
 
-	logger.Infof("Namespaces provided to DeleteStateCC: %v", t.Namespaces)
+	logger.Infof("%s - Namespaces provided to DeleteStateCC: %v", methodName, t.Namespaces)
 	logger.Infof("- End execution -  %s\n", methodName)
 	return shim.Success(nil)
 }
 
 // Invoke is the entry point for all invocations
 func (t *DeleteStateCC) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-	function, _ := stub.GetFunctionAndParameters()
 	logger.Info("########### DeleteStateCC Invoke ###########")
+	function, _ := stub.GetFunctionAndParameters()
 
 	switch function {
 	case "DeleteState":
@@ -75,10 +75,10 @@ func (t *DeleteStateCC) DeleteState(stub shim.ChaincodeStubInterface) pb.Respons
 			return shim.Error(err.Error())
 		}
 		totalRecordsDeleted += recordsDeleted
-		logger.Infof("- DeleteRecordsByPartialKey returned with total # of records deleted - %d for namespace %s", recordsDeleted, namespace)
+		logger.Infof("%s - DeleteRecordsByPartialKey returned with total # of records deleted - %d for namespace %s", methodName, recordsDeleted, namespace)
 	}
 
-	logger.Infof("- Total number of records deleted accross all namespaces - %d", totalRecordsDeleted)
+	logger.Infof("%s - Total number of records deleted accross all namespaces - %d", methodName, totalRecordsDeleted)
 	totalDeleteCountInBytes := []byte(strconv.Itoa(totalRecordsDeleted))
 	return shim.Success(totalDeleteCountInBytes)
 }
@@ -91,14 +91,14 @@ func (t *DeleteStateCC) DeleteRecordsByPartialKey(stub shim.ChaincodeStubInterfa
 	// Create composite partial key for namespace
 	iterator, err := stub.GetStateByPartialCompositeKey(namespace, []string{})
 	if err != nil {
-		errorMsg := "Failed to get iterator for partial composite key:" + namespace + ". Error: " + err.Error()
+		errorMsg := fmt.Sprintf("%s - Failed to get iterator for partial composite key: %s. Error: %s", methodName, namespace, err.Error())
 		logger.Error(errorMsg)
 		return recordsDeletedCount, err
 	}
 
 	// Once we are done with the iterator, we must close it
 	defer iterator.Close()
-	logger.Infof("Starting to delete all records with namespace %s", namespace)
+	logger.Infof("%s - Starting to delete all records with namespace %s", methodName, namespace)
 
 	for iterator.HasNext() {
 		responseRange, err := iterator.Next()
@@ -117,10 +117,10 @@ func (t *DeleteStateCC) DeleteRecordsByPartialKey(stub shim.ChaincodeStubInterfa
 			return recordsDeletedCount, err
 		}
 		recordsDeletedCount++
-		logger.Debugf("Successfully deleted record '%d' with composite key: %s", recordsDeletedCount, recordKey)
+		logger.Debugf("%s - Successfully deleted record '%d' with composite key: %s", methodName, recordsDeletedCount, recordKey)
 	}
 
-	logger.Infof("Finished deleting all records found in %s", namespace)
+	logger.Infof("%s - Finished deleting all records found in %s", methodName, namespace)
 	logger.Infof("- End execution -  %s", methodName)
 	return recordsDeletedCount, nil
 }
