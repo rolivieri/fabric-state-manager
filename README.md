@@ -62,26 +62,26 @@ $ go test
 2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Info -> INFO 004 ########### DeleteStateCC Init ###########
 2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 005 Namespsaces provided to DeleteStateCC: [TestNamespace1 TestNamespace2]
 2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 006 - End execution -  Init()
-Inserting dummy reconrd into namespace: TestNamespace1
-Inserting dummy reconrd into namespace: TestNamespace2
-Inserting dummy reconrd into namespace: TestNamespace1
-Inserting dummy reconrd into namespace: TestNamespace2
-Inserting dummy reconrd into namespace: TestNamespace1
-Inserting dummy reconrd into namespace: TestNamespace2
-Inserting dummy reconrd into namespace: TestNamespace1
-Inserting dummy reconrd into namespace: TestNamespace2
-Inserting dummy reconrd into namespace: TestNamespace1
-Inserting dummy reconrd into namespace: TestNamespace2
-Inserting dummy reconrd into namespace: TestNamespace1
-Inserting dummy reconrd into namespace: TestNamespace2
-Inserting dummy reconrd into namespace: TestNamespace1
-Inserting dummy reconrd into namespace: TestNamespace2
-Inserting dummy reconrd into namespace: TestNamespace1
-Inserting dummy reconrd into namespace: TestNamespace2
-Inserting dummy reconrd into namespace: TestNamespace1
-Inserting dummy reconrd into namespace: TestNamespace2
-Inserting dummy reconrd into namespace: TestNamespace1
-Inserting dummy reconrd into namespace: TestNamespace2
+Inserting dummy record into namespace: TestNamespace1
+Inserting dummy record into namespace: TestNamespace2
+Inserting dummy record into namespace: TestNamespace1
+Inserting dummy record into namespace: TestNamespace2
+Inserting dummy record into namespace: TestNamespace1
+Inserting dummy record into namespace: TestNamespace2
+Inserting dummy record into namespace: TestNamespace1
+Inserting dummy record into namespace: TestNamespace2
+Inserting dummy record into namespace: TestNamespace1
+Inserting dummy record into namespace: TestNamespace2
+Inserting dummy record into namespace: TestNamespace1
+Inserting dummy record into namespace: TestNamespace2
+Inserting dummy record into namespace: TestNamespace1
+Inserting dummy record into namespace: TestNamespace2
+Inserting dummy record into namespace: TestNamespace1
+Inserting dummy record into namespace: TestNamespace2
+Inserting dummy record into namespace: TestNamespace1
+Inserting dummy record into namespace: TestNamespace2
+Inserting dummy record into namespace: TestNamespace1
+Inserting dummy record into namespace: TestNamespace2
 2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Info -> INFO 007 ########### DeleteStateCC Invoke ###########
 2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Info -> INFO 008 ########### Calling DeleteState ###########
 2018-08-17 11:34:37.313 EDT [DeleteStateCCLog] Infof -> INFO 009 - Begin execution -  DeleteState()
