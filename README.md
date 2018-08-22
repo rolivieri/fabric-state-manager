@@ -198,6 +198,9 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
 
             case "DeleteState":		
                 return t.DeleteState(stub)
+            
+            ...
+        }
 
         ...
 
