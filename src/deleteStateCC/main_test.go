@@ -70,7 +70,7 @@ func TestDeleteState(t *testing.T) {
 				fmt.Println("Failed to generate composite key for record with id " + recordID + ". Error: " + compositeErr.Error())
 				t.FailNow()
 			}
-			fmt.Println("Inserting dummy reconrd into namespace:", namespace)
+			fmt.Println("Inserting dummy record into namespace:", namespace)
 
 			// Need a dummy transaction before we can call the stub.PutState() method
 			stub.MockTransactionStart(TxID)
