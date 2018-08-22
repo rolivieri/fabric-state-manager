@@ -148,7 +148,7 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
 
         ...
 
-        ds "<your chaincode directory>/statemanager"
+        sm "<your chaincode directory>/statemanager"
 
         ...
     )
@@ -158,7 +158,7 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
         ...
 
         //Using inheritance in this sample
-        ds.DeleteStateCC
+        sm.DeleteStateCC
 
         ...    
     }
