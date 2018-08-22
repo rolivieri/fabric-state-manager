@@ -130,31 +130,50 @@ Ideally, to use this code from your chaincode component, you'd simply need to:
 
 * Deploy this code as a chaincode component to your channel.
 * Instantiate this chaincode component by providing the namespaces whose data should deleted from the world state.
-* Invoke this chaincode component from your chaincode component that was deployed to the same channel.
+* Invoke this chaincode component from your chaincode component that was deployed to the same channel, or
+* Invoke this chaincode component directly from your Fabric client.
 
-Unfortunately, the above won't work. Fabric takes into account the chaincode component when partitioning the data stored in a channel. This means that this chaincode component won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this limitation, you'd need to follow these steps instead:
+Unfortunately, the above won't work. At the time of writing, Fabric takes into account the chaincode component when partitioning the data stored in a channel. This means that this chaincode component won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this limitation, you can follow these steps instead:
 
+1.  Clone this repo and copy the [`statemanager`](/src/deleteStateCC/statemanager) directory inside your chaincode component's directory.
 
-1.  Copy `deleteStateCC` source directory inside your chaincode component's `src` directory
-2.  Extend the implementation 
-    * import the `deleteStateCC` source as a dependency
-    * include dependency from the step above as the addition to chaincode.  Ex:
+2.  Use inheritance (or composition) to extend the capabiltiies of your chaincode component:
+    * Import the `statemanager` folder in your chaincode
+    * Reference the `DeleteStateCC` structure in your chaincode component
+    
     ```
-    type SampleChaincode struct {        
+    package main
+
+    import (
         ...
-        //add the dependency below to extend the chaincode
-        <add chaincode component here >        
+
+        ds "<your chaincode directory>/statemanager"
+
+        ...
+    )
+
+    type SampleChaincodeCC struct {        
+        ...
+
+        //Using inheritance in this sample
+        ds.DeleteStateCC
+
+        ...    
     }
     ```
-3.  Add the Initialize(...) method to the Invoke() method of your current chaincode.  Ex:
+
+3.  From the `Init()` method in your chaincode component, invoke the `Initialize(...)`. The invocation to the `Initialize()` method from your chaincode should pass an array of strings that contains the namespaces whose data should be deleted from the world state.  Ex:
+
     ```
-    case "Initialize":				
-		return t.Initialize(args)
+    namespaces := []string{"namespace1", "namespace2", ... "namespaceN"}			
+	return t.Initialize(namespaces)
     ```
-4.  Add the DeleteState(...) method to the Invoke() method of your current chaincode.  Ex:
+
+4.  Add the `DeleteState(...)` method to the `Invoke()` method of your chaincode component.  Ex:
+
     ```
     case "DeleteState":		
 		return t.DeleteState(stub)
     ```
-5.  Call `Initialize()` method from your chaincode passing in the string parameter list that is the namespace(s) whose records will be deleted.
-6.  Call `DeleteState()` method which will read the namespaces from the previous step and delete all the actual records.
+
+5.  Whenever there is the need to reset the world state, your Fabric client application should call the `DeleteState()` method which will read the namespaces provided to the `Initialize()` method; the invocation of the `DeleteState()` method will result in the deletion of all the records found under those namespaces.
