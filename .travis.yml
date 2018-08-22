@@ -2,7 +2,7 @@ language: go
 go:
   - "1.9"
 
-go_import_path: github.com/rolivieri/fabric-reset-world-state
+go_import_path: github.com/rolivieri/fabric-reset-world-state/src
 
 env:
   - HLF_VERSION="1.1.0"
