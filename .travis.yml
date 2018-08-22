@@ -21,11 +21,12 @@ install:
   - echo Placing Fabric source in directory expected by Go build
   - mkdir -p ${GOPATH}/src/github.com/hyperledger
   - mv ${FABRIC_SRC_DIR} ${GOPATH}/src/github.com/hyperledger/fabric
+  - export GOPATH=$GOPATH:$TRAVIS_BUILD_DIR
+  - go get -t -v ./...
 
 script:
     - echo Building and testing chaincode
     - echo $GOPATH
-    - export GOPATH=$GOPATH:$TRAVIS_BUILD_DIR
     - ls -la
     - go build -v ./...
     - go test -v ./...
