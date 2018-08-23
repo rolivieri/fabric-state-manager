@@ -154,7 +154,7 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
 
 2.  Use inheritance (or composition) to extend the capabiltiies of your code by referencing the `DeleteStateCC` structure (which resides in the `statemanager` package you just imported) in your chaincode component:
     
-   ```
+    ```
     type SampleChaincodeCC struct {      
 
         ...
