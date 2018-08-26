@@ -137,7 +137,7 @@ Ideally, to use this code from your chaincode component, you'd simply need to:
 
 Unfortunately, the above won't work. At the time of writing, Fabric takes into account the chaincode component when partitioning the data stored in a channel. This means that this chaincode component won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this limitation, you can follow these steps instead:
 
-1. Download this library as a dependency:
+1. Download this repository a a dependency:
 
 ```
 $ go get github.com/rolivieri/fabric-reset-world-state/src/deleteStateCC/statemanager
