@@ -137,7 +137,13 @@ Ideally, to use this code from your chaincode component, you'd simply need to:
 
 Unfortunately, the above won't work. At the time of writing, Fabric takes into account the chaincode component when partitioning the data stored in a channel. This means that this chaincode component won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this limitation, you can follow these steps instead:
 
-1.  Import the `statemanager` package into your chaincode component:
+1. Download this library as a dependency:
+
+```
+$ go get github.com/rolivieri/fabric-reset-world-state/src/deleteStateCC/statemanager
+```
+
+2. Import the `statemanager` package into your chaincode component:
 
     ```
     package main
@@ -152,7 +158,7 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
     )
     ```
 
-2.  Use inheritance (or composition) to extend the capabiltiies of your code by referencing the `DeleteStateCC` structure (which resides in the `statemanager` package you just imported) in your chaincode component:
+3.  Use inheritance (or composition) to extend the capabiltiies of your code by referencing the `DeleteStateCC` structure (which resides in the `statemanager` package you just imported) in your chaincode component:
     
     ```
     type SampleChaincodeCC struct {      
@@ -166,7 +172,7 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
     }
     ```
 
-3.  From the `Init()` method in your chaincode component, invoke the `Initialize(...)` method. The invocation to the `Initialize()` method from your chaincode should pass an array of strings that contains the namespaces whose data should be deleted from the world state.  Ex:
+4.  From the `Init()` method in your chaincode component, invoke the `Initialize(...)` method. The invocation to the `Initialize()` method from your chaincode should pass an array of strings that contains the namespaces whose data should be deleted from the world state.  Ex:
 
     ```
     // Init initializes chaincode
@@ -183,7 +189,7 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
     }
     ```
 
-4.  Add the `DeleteState(...)` method to the `Invoke()` method of your chaincode component.  Ex:
+5.  Add the `DeleteState(...)` method to the `Invoke()` method of your chaincode component.  Ex:
 
     ```
     // Invoke - Entry point for Invocations
@@ -209,4 +215,4 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
     }
     ```
 
-5.  Whenever there is the need to reset the world state, your Fabric client application should call the `DeleteState()` method which will read the namespaces provided to the `Initialize()` method; the invocation of the `DeleteState()` method will result in the deletion of all the records found under those namespaces.
+6.  Whenever there is the need to reset the world state, your Fabric client application should call the `DeleteState()` method which will read the namespaces provided to the `Initialize()` method; the invocation of the `DeleteState()` method will result in the deletion of all the records found under those namespaces.
