@@ -26,6 +26,7 @@ install:
 
 script:
     - echo Building and testing chaincode
-    - go build -v ./src/statemanager
+    - cd statemanager
+    - go build -v ./...
     - go test -v ./...
  
