@@ -9,17 +9,17 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
-var logger = shim.NewLogger("DeleteStateCCLog")
+var logger = shim.NewLogger("RemoverCCLog")
 
-// DeleteStateCC chaincode structure
-type DeleteStateCC struct {
+// RemoverCC chaincode structure
+type RemoverCC struct {
 	// Namespaces array variable
 	Namespaces []string
 }
 
 // Init initializes chaincode
-func (t *DeleteStateCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
-	logger.Info("########### DeleteStateCC Init ###########")
+func (t *RemoverCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
+	logger.Info("########### RemoverCC Init ###########")
 	methodName := "Init()"
 	_, args := stub.GetFunctionAndParameters()
 	t.Initialize(args)
@@ -28,24 +28,24 @@ func (t *DeleteStateCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
 }
 
 // Initialize initializes chaincode
-func (t *DeleteStateCC) Initialize(namespaces []string) pb.Response {
-	logger.Info("########### DeleteStateCC Initialize ###########")
+func (t *RemoverCC) Initialize(namespaces []string) pb.Response {
+	logger.Info("########### RemoverCC Initialize ###########")
 	methodName := "Initialize()"
 	t.Namespaces = namespaces
 
 	if len(t.Namespaces) == 0 {
-		warningMsg := fmt.Sprintf("%s - No namespaces were provided to DeleteStateCC.", methodName)
+		warningMsg := fmt.Sprintf("%s - No namespaces were provided to RemoverCC.", methodName)
 		logger.Warning(warningMsg)
 	}
 
-	logger.Infof("%s - Namespaces provided to DeleteStateCC: %v", methodName, t.Namespaces)
+	logger.Infof("%s - Namespaces provided to RemoverCC: %v", methodName, t.Namespaces)
 	logger.Infof("- End execution -  %s\n", methodName)
 	return shim.Success(nil)
 }
 
 // Invoke is the entry point for all invocations
-func (t *DeleteStateCC) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-	logger.Info("########### DeleteStateCC Invoke ###########")
+func (t *RemoverCC) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
+	logger.Info("########### RemoverCC Invoke ###########")
 	function, _ := stub.GetFunctionAndParameters()
 
 	switch function {
@@ -54,13 +54,13 @@ func (t *DeleteStateCC) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return t.DeleteState(stub)
 	}
 
-	errorMsg := fmt.Sprintf("Could not find function named '%s' in DeleteStateCC.", function)
+	errorMsg := fmt.Sprintf("Could not find function named '%s' in RemoverCC.", function)
 	logger.Errorf(errorMsg)
 	return shim.Error(errorMsg)
 }
 
 // DeleteState deletes all data found under each one of the namespaces provided in the Init() method
-func (t *DeleteStateCC) DeleteState(stub shim.ChaincodeStubInterface) pb.Response {
+func (t *RemoverCC) DeleteState(stub shim.ChaincodeStubInterface) pb.Response {
 	methodName := "DeleteState()"
 	logger.Infof("- Begin execution -  %s", methodName)
 
@@ -84,7 +84,7 @@ func (t *DeleteStateCC) DeleteState(stub shim.ChaincodeStubInterface) pb.Respons
 }
 
 // DeleteRecordsByPartialKey deletes records using a partial composite key (helper function used by DeleteState)
-func (t *DeleteStateCC) DeleteRecordsByPartialKey(stub shim.ChaincodeStubInterface, namespace string) (int, error) {
+func (t *RemoverCC) DeleteRecordsByPartialKey(stub shim.ChaincodeStubInterface, namespace string) (int, error) {
 	methodName := "DeleteRecordsByPartialKey()"
 	logger.Infof("- Begin execution -  %s", methodName)
 	var recordsDeletedCount = 0
