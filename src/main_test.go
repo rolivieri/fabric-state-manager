@@ -3,10 +3,11 @@ package main_test
 import (
 	"fmt"
 	"reflect"
-	sm "statemanager"
 	"strconv"
 	"strings"
 	"testing"
+
+	sm "statemanager"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
