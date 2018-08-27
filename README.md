@@ -1,6 +1,6 @@
-[![Build Status - Master](https://travis-ci.org/rolivieri/fabric-reset-world-state.svg?branch=master)](https://travis-ci.org/rolivieri/fabric-reset-world-state/builds)
+[![Build Status - Master](https://travis-ci.org/rolivieri/fabric-state-manager.svg?branch=master)](https://travis-ci.org/rolivieri/fabric-state-manager/builds)
 
-# fabric-reset-world-state
+# fabric-state-manager
 
 This repository contains a reusable Golang chaincode component, `RemoverCC`, for deleting the records found under a list of namespaces. Thus, this chaincode component can be used to wipe out the world state. The `RemoverCC` chaincode component exposes the following methods:
 
@@ -45,8 +45,8 @@ go get github.com/stretchr/testify/assert
 
 ```
 $ pwd
-/Users/olivieri/git/fabric-reset-world-state
-Ricardos-MacBook-Pro:fabric-reset-world-state olivieri$ ls -la
+/Users/olivieri/git/fabric-state-manager
+$ ls -la
 total 88
 drwxr-xr-x   8 olivieri  staff    256 Aug 27 13:00 .
 drwxr-xr-x  39 olivieri  staff   1248 Aug 24 14:39 ..
@@ -127,11 +127,12 @@ Inserting dummy record into namespace: TestNamespace2
 2018-08-27 13:01:09.266 EDT [RemoverCCLog] Infof -> INFO 02f DeleteState() - Total number of records deleted accross all namespaces - 20
 Summary: Expected number of deleted records = 20, actual number of deleted records from chain = 20 
  PASS
-ok  	_/Users/olivieri/git/fabric-reset-world-state	0.029s
+ok  	_/Users/olivieri/git/fabric-state-manager	0.029s
 $  
 ```
 
 ## How to leverage this code from your chaincode component
+### Development
 In an ideal world, to use this code from your chaincode component, you'd simply need to:
 
 * Deploy this code as a chaincode component to your channel.
@@ -144,10 +145,10 @@ Unfortunately, the above won't work. At the time of writing, Fabric takes into a
 1. Download this repository as a dependency:
 
 ```
-$ go get github.com/rolivieri/fabric-reset-world-state
+$ go get github.com/rolivieri/fabric-state-manager
 ```
 
-2. Import the `statemanager` package into your chaincode component:
+2. Import the `fabric-state-manager` package into your chaincode component:
 
     ```
     package main
@@ -156,13 +157,13 @@ $ go get github.com/rolivieri/fabric-reset-world-state
 
         ...
 
-        sm "github.com/rolivieri/fabric-reset-world-state"
+        sm "github.com/rolivieri/fabric-state-manager"
 
         ...
     )
     ```
 
-3.  Use inheritance (or composition) to extend the capabiltiies of your code by referencing the `RemoverCC` structure (which resides in the `statemanager` package you just imported) in your chaincode component:
+3.  Use inheritance (or composition) to extend the capabiltiies of your code by referencing the `RemoverCC` structure (which resides in the `fabric-state-manager` package you just imported) in your chaincode component:
     
     ```
     type SampleChaincodeCC struct {      
@@ -221,3 +222,5 @@ $ go get github.com/rolivieri/fabric-reset-world-state
 
 6.  Whenever there is the need to reset the world state, your Fabric client application should call the `DeleteState()` method which will read the namespaces provided to the `Initialize()` method; the invocation of the `DeleteState()` method will result in the deletion of all the records found under those namespaces.
 
+### Deployment
+TODO
