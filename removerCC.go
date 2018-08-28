@@ -1,4 +1,4 @@
-package main
+package statemanager
 
 import (
 	"fmt"
@@ -123,11 +123,4 @@ func (t *RemoverCC) DeleteRecordsByPartialKey(stub shim.ChaincodeStubInterface, 
 	logger.Infof("%s - Finished deleting all records found in %s", methodName, namespace)
 	logger.Infof("- End execution -  %s", methodName)
 	return recordsDeletedCount, nil
-}
-
-func main() {
-	err := shim.Start(new(RemoverCC))
-	if err != nil {
-		logger.Errorf("Error starting DeleteStateCC: %s", err)
-	}
 }

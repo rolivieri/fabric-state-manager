@@ -223,8 +223,8 @@ $ go get github.com/rolivieri/fabric-state-manager
 6.  Whenever there is the need to reset the world state, your Fabric client application should call the `DeleteState()` method which will read the namespaces provided to the `Initialize()` method; the invocation of the `DeleteState()` method will result in the deletion of all the records found under those namespaces.
 
 ### Deployment
-As mentioned before, hopefully there will soon be a dependency manager tool for GO and Fabric will take advantage of it. In the mean time, to deploy a chaincode component that leverages the code in this repository, you will need to perform a few manual steps.
+As mentioned before, hopefully there will soon be a dependency manager tool for GO. Also, once this is available, hopefully Hyperledger Fabric will take advantage of it. In the mean time, to deploy a chaincode component that leverages the code in this repository, you will need to perform a few manual steps.
 
 1. Copy `removerCC.go` into your chaincode project.
 
-2. Update... TODO
+2. TODO...
