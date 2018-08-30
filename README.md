@@ -223,8 +223,46 @@ $ go get github.com/rolivieri/fabric-state-manager
 6.  Whenever there is the need to reset the world state, your Fabric client application should call the `DeleteState()` method which will read the namespaces provided to the `Initialize()` method; the invocation of the `DeleteState()` method will result in the deletion of all the records found under those namespaces.
 
 ### Deployment
-As mentioned before, hopefully there will soon be a dependency manager tool for GO. Also, once this is available, hopefully Hyperledger Fabric will take advantage of it. In the mean time, to deploy a chaincode component that leverages the code in this repository, you will need to perform a few manual steps.
+As mentioned before, hopefully there will soon be a dependency manager tool for GO. Also, once this is available, hopefully the Hyperledger Fabric platform makes use of this tool so chaincode developers can simply specify in some form their chaincode dependencies so they can be pulled down on behalf of the developer (think of `package.json` for Node.js apps or  `Package.swift` for Swift apps). In the mean time, to deploy a chaincode component that leverages the code in this repository, you will need to perform a few manual steps.
 
-1. Copy `removerCC.go` into your chaincode project.
+1. Install the `govendor` tool:
 
-2. TODO...
+```
+go get -u github.com/kardianos/govendor
+```
+
+For further details, please see the govendor [documentation](https://github.com/kardianos/govendor).
+
+2. From the root folder of your chaincode component, execute the following commands:
+
+```
+govendor init
+govendor add github.com/rolivieri/fabric-state-manager
+
+```
+
+Please note the above assumes you have the `govendor` tool in your `PATH`.
+
+The execution of the above commands should result in the creation of the `vendor` folder and in it you should find the `fabric-state-manager` dependency:
+
+```
+$ pwd
+/Users/olivieri/go/src/my-chaincode/vendor
+$ ls -la
+total 8
+drwxr-xr-x   4 olivieri  staff  128 Aug 30 13:21 .
+drwxr-xr-x  10 olivieri  staff  320 Aug 30 13:19 ..
+drwxr-xr-x   3 olivieri  staff   96 Aug 30 13:21 github.com
+-rw-r--r--   1 olivieri  staff  313 Aug 30 13:21 vendor.json
+$ find .
+.
+./vendor.json
+./github.com
+./github.com/rolivieri
+./github.com/rolivieri/fabric-state-manager
+./github.com/rolivieri/fabric-state-manager/README.md
+./github.com/rolivieri/fabric-state-manager/removerCC.go
+$ 
+```
+
+By following the steps above, you have effectively included in your chaincode component the `fabric-state-manager` as a dependency that will be available when your chaincode is deployed and instantiated in a Hyperledger Fabric network. For further details, please see [Managing external dependencies for chaincode written in Go](https://hyperledger-fabric.readthedocs.io/en/release-1.1/chaincode4ade.html#managing-external-dependencies-for-chaincode-written-in-go).
