@@ -41,11 +41,11 @@ go get github.com/stretchr/testify/assert
 ```
 
 ### Steps
-1) Once you have cloned this repository, navigate to its root folder and execute the commands shown below to compile and test the `RemoverCC` chaincode component:
+1) Once you have cloned this repository into your GO workspace, navigate to its root folder and execute the commands shown below to compile and test the `RemoverCC` chaincode component:
 
 ```
 $ pwd
-/Users/olivieri/git/fabric-state-manager
+/Users/olivieri/go/fabric-state-manager
 $ ls -la
 total 88
 drwxr-xr-x   8 olivieri  staff    256 Aug 27 13:00 .
@@ -127,7 +127,7 @@ Inserting dummy record into namespace: TestNamespace2
 2018-08-27 13:01:09.266 EDT [RemoverCCLog] Infof -> INFO 02f DeleteState() - Total number of records deleted accross all namespaces - 20
 Summary: Expected number of deleted records = 20, actual number of deleted records from chain = 20 
  PASS
-ok  	_/Users/olivieri/git/fabric-state-manager	0.029s
+ok  	_/Users/olivieri/go/fabric-state-manager	0.029s
 $  
 ```
 
