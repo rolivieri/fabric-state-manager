@@ -133,14 +133,7 @@ $
 
 ## How to leverage this code from your chaincode component
 ### Development
-In an ideal world, to use this code from your chaincode component, you'd simply need to:
-
-* Deploy this code as a chaincode component to your channel.
-* Instantiate this chaincode component by providing the namespaces whose data should deleted from the world state.
-* Invoke this chaincode component from your chaincode component that was deployed to the same channel, or
-* Invoke this chaincode component directly from your Fabric client.
-
-Unfortunately, the above won't work. At the time of writing, Fabric takes into account the chaincode component when partitioning the data stored in a channel. This means that this chaincode component won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this limitation, you can follow these steps instead:
+Please remember that Hyperledger Fabric takes into account chaincode components when partitioning the data stored in a channel. In other words, a chaincode components won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this, you cannot just deploy this code as a chaincode component and expect it to have access to the data written by another chaincode. Therefore, to leverage the code in this repository, you can follow the following steps:
 
 1. Download this repository as a dependency:
 
