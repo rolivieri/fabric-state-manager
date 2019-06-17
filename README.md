@@ -32,7 +32,7 @@ tar -xvf v1.1.0.tar.gz
 
 Untarring the above file results in the creation of a folder named `fabric-1.1.0`. You should now move the contents of the `fabric-1.1.0` folder into the following folder `${GOPATH}/src/github.com/hyperledger/fabric` (you may need to first create the `${GOPATH}/src/github.com/hyperledger/fabric` folder).
 
-**Note**: Unfortunately, at the time of writing, the GO languge does not have yet an official dependency manager tool. Initially, [dep](https://github.com/golang/dep) was slated to become this tool but that no longer seems to be the case. Due to the lack of such a tool, the need for downloading the Fabric v1.1.0 archive, untarring it, and copying the files to the corresponding folder.
+**Note**: Unfortunately, at the time of writing, the GO language does not have yet an official dependency manager tool. Initially, [dep](https://github.com/golang/dep) was slated to become this tool but that no longer seems to be the case. Due to the lack of such a tool, the need for downloading the Fabric v1.1.0 archive, untarring it, and copying the files to the corresponding folder.
 
 3) Finally, you'll also need to download the following assert library before proceeding with steps in the next section:
 
@@ -133,7 +133,7 @@ $
 
 ## How to leverage this code from your chaincode component
 ### Development
-Please remember that Hyperledger Fabric takes into account chaincode components when partitioning the data stored in a channel. In other words, a chaincode components won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this, you cannot just deploy this code as a chaincode component and expect it to have access to the data written by another chaincode. Therefore, to leverage the code in this repository, you can follow the following steps:
+Please remember that Hyperledger Fabric takes into account chaincode components when partitioning the data stored in a channel. In other words, a chaincode component won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this, you cannot just deploy this code as a chaincode component and expect it to have access to the data written by another chaincode. Therefore, to leverage the code in this repository, you can follow the following steps:
 
 1. Download this repository as a dependency:
 
@@ -156,7 +156,7 @@ $ go get github.com/rolivieri/fabric-state-manager
     )
     ```
 
-3.  Use inheritance (or composition) to extend the capabiltiies of your code by referencing the `RemoverCC` structure (which resides in the `fabric-state-manager` package you just imported) in your chaincode component:
+3.  Use inheritance (or composition) to extend the capabilities of your code by referencing the `RemoverCC` structure (which resides in the `fabric-state-manager` package you just imported) in your chaincode component:
     
     ```
     type SampleChaincodeCC struct {      
