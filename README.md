@@ -11,9 +11,9 @@ Though more than likely you won't be resetting the world state in a production e
 ## Compiling and running test cases
 
 ### Platform
-It is stronly recommended to use **macOS** or a **Linux** flavor (such as Ubuntu) for compiling and testing the `RemoverCC` chaincode component.
+It is strongly recommended to use **macOS** or a **Linux** flavor (such as Ubuntu) for compiling and testing the `RemoverCC` chaincode component.
 
-### Prerequistes
+### Prerequisites
 1) Before you attempt to compile and run the tests cases for `RemoverCC`, please make sure you have the necessary [pre-requisites](https://hyperledger-fabric.readthedocs.io/en/release-1.1/prereqs.html) on your system:
 
 * GO programming language (v1.9.x)
