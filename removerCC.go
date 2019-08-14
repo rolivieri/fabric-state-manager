@@ -11,10 +11,11 @@ import (
 
 var logger = shim.NewLogger("RemoverCCLog")
 
+// Key for storing namespaces on the blockchain
+const Key = "fabric-state-manager"
+
 // RemoverCC chaincode structure
 type RemoverCC struct {
-	// Namespaces array variable
-	Namespaces []string
 }
 
 // Init initializes chaincode
@@ -22,23 +23,31 @@ func (t *RemoverCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	logger.Info("########### RemoverCC Init ###########")
 	methodName := "Init()"
 	_, args := stub.GetFunctionAndParameters()
-	t.Initialize(args)
+	t.Initialize(stub, args)
 	logger.Infof("- End execution -  %s\n", methodName)
 	return shim.Success(nil)
 }
 
 // Initialize initializes chaincode
-func (t *RemoverCC) Initialize(namespaces []string) pb.Response {
+func (t *RemoverCC) Initialize(stub shim.ChaincodeStubInterface, namespaces []string) pb.Response {
 	logger.Info("########### RemoverCC Initialize ###########")
 	methodName := "Initialize()"
-	t.Namespaces = namespaces
 
-	if len(t.Namespaces) == 0 {
+	if len(namespaces) == 0 {
 		warningMsg := fmt.Sprintf("%s - No namespaces were provided to RemoverCC.", methodName)
 		logger.Warning(warningMsg)
 	}
 
-	logger.Infof("%s - Namespaces provided to RemoverCC: %v", methodName, t.Namespaces)
+	// Store namespaces on the blockchain
+	namespacesAsBytes := []byte(strings.Join(namespaces, ","))
+	err := stub.PutState(Key, namespacesAsBytes)
+	if err != nil {
+		errorMsg := fmt.Sprintf("Error storing namespaces: %s", err.Error())
+		logger.Error(errorMsg)
+		return shim.Error(errorMsg)
+	}
+
+	logger.Infof("%s - Namespaces provided to RemoverCC: %v", methodName, namespaces)
 	logger.Infof("- End execution -  %s\n", methodName)
 	return shim.Success(nil)
 }
@@ -65,10 +74,18 @@ func (t *RemoverCC) DeleteState(stub shim.ChaincodeStubInterface) pb.Response {
 	logger.Infof("- Begin execution -  %s", methodName)
 
 	totalRecordsDeleted := 0
-	logger.Infof("%s - Deleting data for namespaces: '%s'", methodName, strings.Join(t.Namespaces, ","))
+	namespacesAsBytes, err := stub.GetState(Key)
+	if err != nil {
+		errorMsg := fmt.Sprintf("Error reading namespaces: %s", err.Error())
+		logger.Error(errorMsg)
+		return shim.Error(errorMsg)
+	}
+	namespaces := strings.Split(string(namespacesAsBytes), ",")
+
+	logger.Infof("%s - Deleting data for namespaces: '%s'", methodName, strings.Join(namespaces, ","))
 
 	// Delete records/state in each namespace
-	for _, namespace := range t.Namespaces {
+	for _, namespace := range namespaces {
 		logger.Infof("%s - Deleting data for namespace '%s'.", methodName, namespace)
 		recordsDeleted, err := t.DeleteRecordsByPartialKey(stub, namespace)
 		if err != nil {

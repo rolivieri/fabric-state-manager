@@ -39,7 +39,17 @@ func TestInit(t *testing.T) {
 		fmt.Println("Initialization of RemoverCC chaincode failed: ", string(res.Message))
 		t.FailNow()
 	}
-	assert.True(t, reflect.DeepEqual(scc.Namespaces, TestNamespaces))
+
+	// Read namespaces and assert
+	namespacesAsBytes, err := stub.GetState(Key)
+	if err != nil {
+		errorMsg := fmt.Sprintf("Error reading namespaces: %s", err.Error())
+		fmt.Println(errorMsg)
+		t.FailNow()
+	}
+
+	namespaces := strings.Split(string(namespacesAsBytes), ",")
+	assert.True(t, reflect.DeepEqual(namespaces, TestNamespaces))
 }
 
 func initStub(stub *shim.MockStub) pb.Response {
