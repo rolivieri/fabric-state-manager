@@ -14,25 +14,25 @@ Though more than likely you won't be resetting the world state in a production e
 It is strongly recommended to use **macOS** or a **Linux** flavor (such as Ubuntu) for compiling and testing the `RemoverCC` chaincode component.
 
 ### Prerequisites
-1) Before you attempt to compile and run the tests cases for `RemoverCC`, please make sure you have the necessary [pre-requisites](https://hyperledger-fabric.readthedocs.io/en/release-1.1/prereqs.html) on your system:
+1) Before you attempt to compile and run the tests cases for `RemoverCC`, please make sure you have the necessary [pre-requisites](https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html) on your system:
 
-* GO programming language (v1.9.x)
+* GO programming language (v1.11.x)
 
-2) Once you have GO installed on your system, you should download the Fabric v1.1.0 files. To do so, you can access the following URL from your browser: `https://github.com/hyperledger/fabric/archive/v1.1.0.tar.gz`. As an alternative, you can execute the following command from your command line:
+2) Once you have GO installed on your system, you should download the Fabric v1.4.2 files. To do so, you can access the following URL from your browser: `https://github.com/hyperledger/fabric/archive/v1.4.2.tar.gz`. As an alternative, you can execute the following command from your command line:
 
 ```
-curl -O -L https://github.com/hyperledger/fabric/archive/v1.1.0.tar.gz
+curl -O -L https://github.com/hyperledger/fabric/archive/v1.4.2.tar.gz
 ```
 
 After downloading the Fabric files, you should untar the archive. You can do so by executing the following command:
 
 ```
-tar -xvf v1.1.0.tar.gz
+tar -xvf v1.4.2.tar.gz
 ```
 
-Untarring the above file results in the creation of a folder named `fabric-1.1.0`. You should now move the contents of the `fabric-1.1.0` folder into the following folder `${GOPATH}/src/github.com/hyperledger/fabric` (you may need to first create the `${GOPATH}/src/github.com/hyperledger/fabric` folder).
+Untarring the above file results in the creation of a folder named `fabric-1.4.2`. You should now move the contents of the `fabric-1.4.2` folder into the following folder `${GOPATH}/src/github.com/hyperledger/fabric` (you may need to first create the `${GOPATH}/src/github.com/hyperledger/fabric` folder).
 
-**Note**: Unfortunately, at the time of writing, the GO language does not have yet an official dependency manager tool. Initially, [dep](https://github.com/golang/dep) was slated to become this tool but that no longer seems to be the case. Due to the lack of such a tool, the need for downloading the Fabric v1.1.0 archive, untarring it, and copying the files to the corresponding folder.
+**Note**: Unfortunately, at the time of writing, the GO language does not have yet an official dependency manager tool. Initially, [dep](https://github.com/golang/dep) was slated to become this tool but that no longer seems to be the case. Due to the lack of such a tool, the need for downloading the Fabric v1.4.2 archive, untarring it, and copying the files to the corresponding folder.
 
 3) Finally, you'll also need to download the following assert library before proceeding with steps in the next section:
 
@@ -258,4 +258,4 @@ $ find .
 $ 
 ```
 
-By following the steps above, you have effectively included in your chaincode component the `fabric-state-manager` as a dependency that will be available when your chaincode is deployed and instantiated in a Hyperledger Fabric network. For further details, please see [Managing external dependencies for chaincode written in Go](https://hyperledger-fabric.readthedocs.io/en/release-1.1/chaincode4ade.html#managing-external-dependencies-for-chaincode-written-in-go).
+By following the steps above, you have effectively included in your chaincode component the `fabric-state-manager` as a dependency that will be available when your chaincode is deployed and instantiated in a Hyperledger Fabric network. For further details, please see [Managing external dependencies for chaincode written in Go](https://hyperledger-fabric.readthedocs.io/en/release-1.4/chaincode4ade.html#managing-external-dependencies-for-chaincode-written-in-go).

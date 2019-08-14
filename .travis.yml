@@ -1,16 +1,9 @@
 language: go
 go:
-  - "1.9"
+  - "1.11"
 
 env:
-  - HLF_VERSION="1.1.0"
-
-# whitelist (branches that should be built)
-branches:
-  only:
-    - master
-    - develop
-    - /^issue.*$/
+  - HLF_VERSION="1.4.2"
 
 install:
   - echo Begin download Hyperledger Fabric
